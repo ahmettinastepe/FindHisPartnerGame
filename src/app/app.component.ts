@@ -8,12 +8,12 @@ import { Button } from 'src/models/button';
 })
 export class AppComponent {
 
-  horizontal: number = 4;
-  vertical: number = 3;
   counter: number = 0;
   endGame: boolean = false;
   errorCount: number = 0;
   successCount: number = 0;
+  isGameBoardShow: boolean = false;
+  isLevelButtonsShow: boolean = true;
 
   grouped: Array<Button[]> = new Array<Button[]>();
   buttons: Array<Button> = new Array<Button>();
@@ -23,18 +23,30 @@ export class AppComponent {
   removeButtons: Array<Button> = new Array<Button>();
 
   newGame() {
-    console.log("Yeni Oyunu Başlat");
+    this.counter = 0;
+    this.endGame = false;
+    this.errorCount = 0;
+    this.successCount = 0;
+    this.isGameBoardShow = false;
+    this.isLevelButtonsShow = true;
+
+    this.grouped = new Array<Button[]>();
+    this.buttons = new Array<Button>();
+    this.randomButtons = new Array<Button>();
+    this.selectButtons = new Array<Button>();
+    this.removeButtons = new Array<Button>();
+
   }
 
   async initialGame(horizontal: number, vertical: number) {
+    this.isLevelButtonsShow = false;
+    this.isGameBoardShow = true;
     this.initialButtons(horizontal, vertical);
-    await this.randomButton();
-    this.random();
+    await this.randomButton(horizontal * vertical);
+    this.random(horizontal);
   }
 
   initialButtons(horizontal: number, vertical: number) {
-    this.horizontal = horizontal;
-    this.vertical = vertical;
     var total = horizontal * vertical;
 
     for (let i = 1; i <= total / 2; i++) {
@@ -46,9 +58,9 @@ export class AppComponent {
     }
   }
 
-  random() {
+  random(horizontal) {
     this.randomButtons.forEach((button, index) => {
-      if (index % this.horizontal === 0) {
+      if (index % horizontal === 0) {
         var buttons = new Array<Button>();
         this.grouped.push(buttons);
       }
@@ -56,8 +68,7 @@ export class AppComponent {
     });
   }
 
-  randomButton() {
-    var total = this.horizontal * this.vertical;
+  randomButton(total: number) {
     console.log("Total: ", total);
     for (let i = 0; i < total; i++) {
       var result = Math.floor(Math.random() * this.buttons.length);
@@ -113,9 +124,8 @@ export class AppComponent {
 
   boardControl() {
     if (this.randomButtons.length / 2 == this.counter) {
-      alert("Oyun Bitti");
-      this.endGame = true;
-      return;
+      alert("Oyun Bitti Hata Sayınız: " + this.errorCount);
+      this.newGame();
     }
   }
 }

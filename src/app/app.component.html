@@ -339,7 +339,7 @@
 <div class="toolbar" role="banner">
   <img width="40" alt="Angular Logo"
     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" />
-  <span>Welcome</span>
+  <span>Eşini Bul Oyunu by <a style="color: whitesmoke; font-weight: bolder;" href="http://ahmettinastepe.com" target="_blank">Ahmet Tınastepe</a></span>
   <div class="spacer"></div>
 
 </div>
@@ -365,7 +365,7 @@
       </g>
     </svg>
 
-    <span>Eşini Bul Oyunu</span>
+    <span>Eşini Bul Oyunu | <b style="cursor: pointer;" (click)="newGame()">Yeni Oyun</b></span>
 
     <svg id="rocket-smoke" alt="Rocket Ship Smoke" xmlns="http://www.w3.org/2000/svg" width="516.119" height="1083.632"
       viewBox="0 0 516.119 1083.632">
@@ -376,80 +376,45 @@
 
   </div>
 
-  <!-- Resources -->
-  <h2>Seviye Seç</h2>
-  <p>Başlamak istediğiniz seviyeyi seçiniz</p>
+  <div *ngIf="isLevelButtonsShow" style="text-align: center;">
+    <!-- Resources -->
+    <h2>Seviye Seç</h2>
+    <p>Başlamak istediğiniz seviyeyi seçiniz</p>
 
-  <div class="card-container">
-    <div class="card" (click)="initialGame(4,3)">
-      <span>4 X 3</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
-    </div>
-    <div class="card" (click)="initialGame(7,6)">
-      <span>7 X 6</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
-    </div>
-    <div class="card" (click)="initialGame(10,10)">
-      <span>10 X 10</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
+    <div class="card-container">
+      <div class="card" (click)="initialGame(4,3)">
+        <span>4 X 3</span>
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
+      </div>
+      <div class="card" (click)="initialGame(7,6)">
+        <span>7 X 6</span>
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
+      </div>
+      <div class="card" (click)="initialGame(10,10)">
+        <span>10 X 10</span>
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
+      </div>
     </div>
   </div>
 
-  <!-- Next Steps -->
-  <h2>Oyun Alanı</h2>
-  <p>Hazır mısın? Hadi başlayalım...</p>
+  <div *ngIf="isGameBoardShow" style="text-align: center;">
+    <!-- Next Steps -->
+    <h2>Oyun Alanı</h2>
+    <p>Hazır mısın? Hadi başlayalım...</p>
 
-  <input type="hidden" #selection>
+    <input type="hidden" #selection>
 
-  <!-- <div class="card-container">
-    <div class="card card-small" (click)="selection.value = 'component'" tabindex="0">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>New Component</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'material'" tabindex="0">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Angular Material</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'pwa'" tabindex="0">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Add PWA Support</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'dependency'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Add Dependency</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'test'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Run and Watch Tests</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'build'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Build for Production</span>
-    </div>
-  </div> -->
-
-  <div class="card-container">
-    <div style="margin-right: 50px; background-color: darkgreen;" class="terminal-error">
-      <pre>Doğru Sayısı</pre>
-      <pre style="font-size: 24px; font-weight: bolder;">{{ successCount }}</pre>
-    </div>
-    <!-- GameBoard -->
-    <div class="terminal">
-      <pre>
+    <div class="card-container">
+      <div style="margin-right: 50px; background-color: darkgreen;" class="terminal-error">
+        <pre>Doğru Sayısı</pre>
+        <pre style="font-size: 24px; font-weight: bolder;">{{ successCount }}</pre>
+      </div>
+      <!-- GameBoard -->
+      <div class="terminal">
+        <pre>
           <table class="card-container"> 
             <tr *ngFor="let group of grouped">
               <td 
@@ -461,20 +426,15 @@
                 <span>{{ button.isTitleShow ? button.title : null }}</span>
               </td>
             </tr>
-            <tr *ngIf="endGame">
-              <td class="btn-element" (click)="newGame()">
-                <span>Yeni Oyun</span>
-              </td>
-            </tr>
           </table>
       </pre>
-    </div>
-    <div style="margin-left: 50px;" class="terminal-error">
-      <pre>Hata Sayısı</pre>
-      <pre style="font-size: 24px; font-weight: bolder;">{{ errorCount }}</pre>
+      </div>
+      <div style="margin-left: 50px;" class="terminal-error">
+        <pre>Hata Sayısı</pre>
+        <pre style="font-size: 24px; font-weight: bolder;">{{ errorCount }}</pre>
+      </div>
     </div>
   </div>
-
 </div>
 
 <router-outlet></router-outlet>
